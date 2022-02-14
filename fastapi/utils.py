@@ -76,7 +76,7 @@ def create_cloned_field(
 ) -> ModelField:
     # _cloned_types has already cloned types, to support recursive models
     if cloned_types is None:
-        cloned_types = dict()
+        cloned_types = {}
     original_type = field.type_
     if is_dataclass(original_type) and hasattr(original_type, "__pydantic_model__"):
         original_type = original_type.__pydantic_model__
@@ -122,7 +122,7 @@ def create_cloned_field(
 def generate_operation_id_for_path(*, name: str, path: str, method: str) -> str:
     operation_id = name + path
     operation_id = re.sub("[^0-9a-zA-Z_]", "_", operation_id)
-    operation_id = operation_id + "_" + method.lower()
+    operation_id = f'{operation_id}_{method.lower()}'
     return operation_id
 
 
